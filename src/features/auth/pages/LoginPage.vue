@@ -23,17 +23,37 @@ const submit = async (): Promise<void> => {
 
     <form class="mt-8 space-y-5" @submit.prevent="submit">
       <div>
-        <label for="login-email" class="mb-1.5 block text-sm font-semibold">Email</label>
-        <input id="login-email" type="email" required autocomplete="email" :value="email" placeholder="nama@email.com"
-          class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100" @input="onEmail" />
+        <label for="login-email-input" class="mb-1.5 block text-sm font-semibold">Email</label>
+        <input
+          id="login-email-input"
+          type="email"
+          required
+          autocomplete="email"
+          :value="email"
+          placeholder="nama@email.com"
+          class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
+          @input="onEmail"
+        />
       </div>
       <div>
-        <label for="login-password" class="mb-1.5 block text-sm font-semibold">Kata Sandi</label>
-        <input id="login-password" type="password" required autocomplete="current-password" :value="password" placeholder="••••••••"
-          class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100" @input="onPassword" />
+        <label for="login-password-input" class="mb-1.5 block text-sm font-semibold">Kata Sandi</label>
+        <input
+          id="login-password-input"
+          type="password"
+          required
+          autocomplete="current-password"
+          :value="password"
+          placeholder="••••••••"
+          class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
+          @input="onPassword"
+        />
       </div>
-      <button type="submit" :disabled="auth.isAuthLoading"
-        class="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60">
+      <button
+        id="login-submit-button"
+        type="submit"
+        :disabled="auth.isAuthLoading"
+        class="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
+      >
         <LoaderCircle v-if="auth.isAuthLoading" class="size-4 animate-spin" />
         {{ auth.isAuthLoading ? 'Memproses...' : 'Masuk' }}
       </button>
