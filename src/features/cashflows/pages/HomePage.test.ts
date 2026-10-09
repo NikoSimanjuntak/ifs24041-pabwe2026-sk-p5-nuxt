@@ -80,12 +80,19 @@ describe('HomePage', () => {
 
   it('menampilkan transaksi pada tabel dan kartu dengan badge jenis', async () => {
     await setup()
-    expect(screen.getAllByTestId('cash-flow-row')).toHaveLength(2)
-    expect(screen.getAllByTestId('cash-flow-card')).toHaveLength(2)
+    const rows = screen.getAllByTestId('cash-flow-row')
+    const cards = screen.getAllByTestId('cash-flow-card')
+    expect(rows).toHaveLength(2)
+    expect(cards).toHaveLength(2)
     expect(screen.getAllByText('Pemasukan').length).toBeGreaterThan(0)
     expect(screen.getAllByText('Pengeluaran').length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/^\+Rp\s2\.500\.000$/)).toHaveLength(2)
-    expect(screen.getAllByText(/^-Rp\s400\.000$/)).toHaveLength(2)
+
+    // Pencarian dibatasi ke baris/kartu transaksi, karena kartu "Saldo Rekening Tabungan"
+    // (-400.000) juga memunculkan teks nominal negatif yang sama.
+    for (const container of [rows, cards]) {
+      expect(within(container[0]).getByText(/^\+Rp\s2\.500\.000$/)).toBeInTheDocument()
+      expect(within(container[1]).getByText(/^-Rp\s400\.000$/)).toBeInTheDocument()
+    }
     expect(screen.getAllByLabelText('Lihat detail transaksi 2')[0]).toHaveAttribute('href', '/cash-flows/2')
   })
 
