@@ -19,10 +19,10 @@ if (getAccessToken()) {
         Delcom Cash Flow
       </div>
       <div class="max-w-md space-y-4">
-        <h1 class="text-4xl leading-tight font-extrabold tracking-tight">Catat setiap rupiah, pahami arah uangmu.</h1>
+        <p class="text-4xl leading-tight font-extrabold tracking-tight">Catat setiap rupiah, pahami arah uangmu.</p>
         <p class="text-emerald-200">Pantau pemasukan, pengeluaran, tabungan, dan pinjaman dalam satu buku kas yang rapi.</p>
       </div>
-      <p class="text-sm text-emerald-300/70">Praktikum Pengembangan Aplikasi Web 2026</p>
+      <p class="text-sm text-emerald-300">Praktikum Pengembangan Aplikasi Web 2026</p>
       <div class="pointer-events-none absolute -right-24 -bottom-24 size-72 rounded-full border-[28px] border-emerald-900"></div>
     </aside>
     <main class="flex items-center justify-center p-6 sm:p-10">

@@ -15,7 +15,7 @@ describe('AuthLayout', () => {
     const { router } = await renderWithProviders(RouterRoot, { route: '/auth/login', routes })
     expect(screen.getByText('isi login')).toBeInTheDocument()
     expect(screen.getAllByText('Delcom Cash Flow')).toHaveLength(2)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Catat setiap rupiah')
+    expect(screen.getByText('Catat setiap rupiah, pahami arah uangmu.')).toBeInTheDocument()
     expect(router.currentRoute.value.fullPath).toBe('/auth/login')
   })
 

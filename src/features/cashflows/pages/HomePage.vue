@@ -116,7 +116,7 @@ const fieldClass =
 
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       <article v-for="card in cards" :key="card.key" data-testid="stat-card" :class="[card.tone, 'rounded-2xl border border-stone-200 p-5']">
-        <div class="flex items-center gap-2 text-sm font-semibold opacity-80">
+        <div class="flex items-center gap-2 text-sm font-semibold">
           <component :is="card.icon" class="size-5" />{{ card.label }}
         </div>
         <p class="mt-3 text-2xl font-extrabold tracking-tight">{{ formatRupiah(card.value) }}</p>
@@ -127,21 +127,21 @@ const fieldClass =
       <div class="mb-4 flex items-center justify-between">
         <h2 class="font-bold">Tren Pemasukan &amp; Pengeluaran</h2>
         <div class="flex rounded-xl bg-stone-100 p-1 text-sm font-semibold">
-          <button type="button" :class="['rounded-lg px-3 py-1', statsMode === 'daily' ? 'bg-white shadow' : 'text-stone-500']" @click="statsMode = 'daily'">Harian</button>
-          <button type="button" :class="['rounded-lg px-3 py-1', statsMode === 'monthly' ? 'bg-white shadow' : 'text-stone-500']" @click="statsMode = 'monthly'">Bulanan</button>
+          <button type="button" :class="['rounded-lg px-3 py-1', statsMode === 'daily' ? 'bg-white shadow' : 'text-stone-600']" @click="statsMode = 'daily'">Harian</button>
+          <button type="button" :class="['rounded-lg px-3 py-1', statsMode === 'monthly' ? 'bg-white shadow' : 'text-stone-600']" @click="statsMode = 'monthly'">Bulanan</button>
         </div>
       </div>
-      <p v-if="bars.length === 0" class="py-8 text-center text-sm text-stone-500">Belum ada data statistik.</p>
+      <p v-if="bars.length === 0" class="py-8 text-center text-sm text-stone-600">Belum ada data statistik.</p>
       <div v-else class="flex h-40 items-end gap-2 overflow-x-auto">
         <div v-for="bar in bars" :key="bar.key" data-testid="stat-bar" :title="bar.key" class="flex min-w-10 flex-1 flex-col items-center gap-1">
           <div class="flex h-32 w-full items-end justify-center gap-1">
             <div class="w-3 rounded-t bg-emerald-500" :style="{ height: `${bar.inflowHeight}%` }"></div>
             <div class="w-3 rounded-t bg-rose-500" :style="{ height: `${bar.outflowHeight}%` }"></div>
           </div>
-          <span class="text-[10px] text-stone-500">{{ bar.caption }}</span>
+          <span class="text-[10px] text-stone-600">{{ bar.caption }}</span>
         </div>
       </div>
-      <div class="mt-3 flex gap-4 text-xs text-stone-500">
+      <div class="mt-3 flex gap-4 text-xs text-stone-600">
         <span class="flex items-center gap-1.5"><span class="size-2.5 rounded-sm bg-emerald-500"></span>Pemasukan</span>
         <span class="flex items-center gap-1.5"><span class="size-2.5 rounded-sm bg-rose-500"></span>Pengeluaran</span>
       </div>
@@ -185,14 +185,14 @@ const fieldClass =
 
     <div>
       <h2 class="mb-3 font-bold">Daftar Transaksi</h2>
-      <p v-if="store.isCashFlowsLoading" class="rounded-2xl bg-white p-8 text-center text-stone-500">Memuat transaksi...</p>
-      <p v-else-if="store.cashFlows.length === 0" class="rounded-2xl border border-dashed border-stone-300 bg-white p-8 text-center text-stone-500">
+      <p v-if="store.isCashFlowsLoading" class="rounded-2xl bg-white p-8 text-center text-stone-600">Memuat transaksi...</p>
+      <p v-else-if="store.cashFlows.length === 0" class="rounded-2xl border border-dashed border-stone-300 bg-white p-8 text-center text-stone-600">
         Belum ada transaksi yang sesuai.
       </p>
       <template v-else>
         <div class="hidden overflow-x-auto rounded-2xl border border-stone-200 bg-white md:block">
           <table class="w-full text-left text-sm">
-            <thead class="bg-stone-50 text-xs tracking-wide text-stone-500 uppercase">
+            <thead class="bg-stone-50 text-xs tracking-wide text-stone-600 uppercase">
               <tr>
                 <th class="px-4 py-3">Tanggal</th>
                 <th class="px-4 py-3">Label</th>
@@ -232,7 +232,7 @@ const fieldClass =
             <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-bold">{{ cashFlow.label }}</p>
-                <p class="text-xs text-stone-500">{{ formatDateTime(cashFlow.created_at) }} &middot; {{ SOURCE_LABELS[cashFlow.source] }}</p>
+                <p class="text-xs text-stone-600">{{ formatDateTime(cashFlow.created_at) }} &middot; {{ SOURCE_LABELS[cashFlow.source] }}</p>
               </div>
               <span :class="['rounded-full px-2.5 py-1 text-xs font-bold', cashFlow.type === 'inflow' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700']">
                 {{ cashFlow.type === 'inflow' ? 'Pemasukan' : 'Pengeluaran' }}

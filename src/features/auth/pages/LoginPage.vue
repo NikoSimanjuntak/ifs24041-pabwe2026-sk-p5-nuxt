@@ -18,7 +18,7 @@ const submit = async (): Promise<void> => {
 
 <template>
   <section>
-    <h2 class="text-3xl font-extrabold tracking-tight">Masuk</h2>
+    <h1 class="text-3xl font-extrabold tracking-tight">Masuk</h1>
     <p class="mt-2 text-stone-600">Selamat datang kembali. Masuk untuk melihat arus kas Anda.</p>
 
     <form class="mt-8 space-y-5" @submit.prevent="submit">
