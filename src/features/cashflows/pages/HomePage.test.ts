@@ -197,6 +197,13 @@ describe('HomePage', () => {
     expect(getCashFlows).toHaveBeenCalledTimes(2)
   })
 
+  it('mengubah transaksi dari tampilan kartu', async () => {
+    await setup()
+    await fireEvent.click(screen.getAllByLabelText('Ubah transaksi 3')[1])
+    expect(screen.getByRole('heading', { name: 'Ubah Transaksi' })).toBeInTheDocument()
+    expect(screen.getByLabelText('Label Kategori')).toHaveValue('alat-elektronik')
+  })
+
   it('menutup modal ubah tanpa menyimpan', async () => {
     await setup()
     await fireEvent.click(screen.getAllByLabelText('Ubah transaksi 3')[0])
