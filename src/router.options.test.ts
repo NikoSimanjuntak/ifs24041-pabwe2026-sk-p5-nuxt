@@ -1,14 +1,26 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createMemoryHistory, createRouter, type RouteRecordRaw } from 'vue-router'
 import { describe, expect, it } from 'vitest'
 import routerOptions from './router.options'
 import { routes } from './routes'
 
 const createTestRouter = () => createRouter({ history: createMemoryHistory(), routes })
 
+const collect = (list: RouteRecordRaw[]): RouteRecordRaw[] =>
+  list.flatMap((route) => [route, ...collect(route.children ?? [])])
+
 describe('router.options', () => {
   it('menyediakan rute dari src/routes.ts', () => {
     const provide = routerOptions.routes as unknown as (existing: unknown[]) => unknown
     expect(provide([])).toBe(routes)
+  })
+
+  it('memuat semua komponen rute secara lazy', async () => {
+    const loaders = collect(routes)
+      .map((route) => route.component)
+      .filter((component) => typeof component === 'function') as (() => Promise<unknown>)[]
+    expect(loaders).toHaveLength(9)
+    const modules = await Promise.all(loaders.map((load) => load()))
+    modules.forEach((module) => expect(module).toHaveProperty('default'))
   })
 
   it('mendaftarkan rute autentikasi', () => {
