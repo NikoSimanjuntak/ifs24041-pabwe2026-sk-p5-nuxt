@@ -55,40 +55,43 @@ export const useUsersStore = defineStore('users', {
     },
     async updateProfile(payload: UpdateProfilePayload): Promise<boolean> {
       this.isProfileUpdating = true
+      let success = false
       try {
         this.profile = await updateMe(payload)
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isProfileUpdating = false
       }
+      return success
     },
     async changePhoto(file: File): Promise<boolean> {
       this.isPhotoUploading = true
+      let success = false
       try {
         await uploadPhoto(file)
         this.profile = await getMe()
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isPhotoUploading = false
       }
+      return success
     },
     async changePassword(payload: ChangePasswordPayload): Promise<boolean> {
       this.isPasswordChanging = true
+      let success = false
       try {
         await changePasswordRequest(payload)
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isPasswordChanging = false
       }
+      return success
     },
   },
 })

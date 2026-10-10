@@ -28,30 +28,32 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(payload: LoginPayload): Promise<boolean> {
       this.isAuthLoading = true
+      let success = false
       try {
         const result = await loginRequest(payload)
         putAccessToken(result.token)
         this.token = result.token
         this.user = result.user
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isAuthLoading = false
       }
+      return success
     },
     async register(payload: RegisterPayload): Promise<boolean> {
       this.isAuthLoading = true
+      let success = false
       try {
         await registerRequest(payload)
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isAuthLoading = false
       }
+      return success
     },
     async logout(): Promise<void> {
       try {

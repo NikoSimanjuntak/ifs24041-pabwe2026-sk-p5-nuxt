@@ -175,58 +175,62 @@ export const useCashFlowsStore = defineStore('cashFlows', {
     async addCashFlow(payload: CashFlowPayload): Promise<boolean> {
       this.isCashFlowAdd = true
       this.isCashFlowAdded = false
+      let success = false
       try {
         await createCashFlow(payload)
         this.isCashFlowAdded = true
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isCashFlowAdd = false
       }
+      return success
     },
     async changeCashFlow(id: number, payload: CashFlowPayload): Promise<boolean> {
       this.isCashFlowChange = true
       this.isCashFlowChanged = false
+      let success = false
       try {
         await updateCashFlow(id, payload)
         this.isCashFlowChanged = true
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isCashFlowChange = false
       }
+      return success
     },
     async deleteCashFlow(id: number): Promise<boolean> {
       this.isCashFlowDelete = true
       this.isCashFlowDeleted = false
+      let success = false
       try {
         await removeCashFlow(id)
         this.isCashFlowDeleted = true
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isCashFlowDelete = false
       }
+      return success
     },
     async deleteAllCashFlows(): Promise<boolean> {
       this.isCashFlowDeleteAll = true
       this.isCashFlowDeletedAll = false
+      let success = false
       try {
         await removeAllCashFlows()
         this.isCashFlowDeletedAll = true
-        return true
+        success = true
       } catch (error) {
         await showErrorDialog(getErrorMessage(error))
-        return false
       } finally {
         this.isCashFlowDeleteAll = false
       }
+      return success
     },
   },
 })
