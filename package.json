@@ -31,5 +31,9 @@
     "jsdom": "^26.1.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "simple-git": "^4.0.1",
+    "@simple-git/argv-parser": "^2.0.1"
   }
 }
