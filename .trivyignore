@@ -1,0 +1,4 @@
+   # braces: belum ada versi perbaikan (dependensi turunan nuxt/nitropack)
+   CVE-2026-93687
+   # node-forge: belum ada versi perbaikan (dependensi turunan nuxt/nitropack)
+   CVE-2026-85393
