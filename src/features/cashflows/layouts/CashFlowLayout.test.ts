@@ -13,7 +13,15 @@ vi.mock('~/helpers/toolsHelper', async (importOriginal) => ({
 }))
 
 const routes = [
-  { path: '/', component: CashFlowLayout, children: [{ path: '', component: textStub('isi dashboard') }] },
+  {
+    path: '/',
+    component: CashFlowLayout,
+    children: [
+      { path: '', component: textStub('isi dashboard') },
+      { path: 'users', component: Blank },
+      { path: 'profile', component: Blank },
+    ],
+  },
   { path: '/auth/login', component: Blank },
 ]
 
@@ -31,6 +39,25 @@ describe('CashFlowLayout', () => {
     expect(screen.queryByText('isi dashboard')).not.toBeInTheDocument()
   })
 
+  it('tetap memiliki landmark main dan heading saat belum login', async () => {
+    // Rute login ditempatkan di bawah layout yang sama agar layout tidak dilepas saat dialihkan.
+    const sameLayoutRoutes = [
+      {
+        path: '/',
+        component: CashFlowLayout,
+        children: [
+          { path: '', component: textStub('isi dashboard') },
+          { path: 'auth/login', component: Blank },
+        ],
+      },
+    ]
+    await renderWithProviders(RouterRoot, { route: '/', routes: sameLayoutRoutes })
+    await flushPromises()
+    expect(screen.getByRole('main')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Mengalihkan ke halaman login')
+    expect(screen.queryByText('isi dashboard')).not.toBeInTheDocument()
+  })
+
   it('menampilkan navbar, sidebar, dan konten saat sudah login', async () => {
     putAccessToken('tok')
     await renderWithProviders(RouterRoot, { route: '/', routes })
@@ -39,6 +66,7 @@ describe('CashFlowLayout', () => {
     expect(screen.getByText('isi dashboard')).toBeInTheDocument()
     expect(screen.getByText('Delcom Testing')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Direktori Pengguna' })).toBeInTheDocument()
+    expect(screen.getByRole('main')).toBeInTheDocument()
   })
 
   it('membuka dan menutup sidebar pada tampilan mobile', async () => {

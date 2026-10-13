@@ -136,8 +136,9 @@ export const useCashFlowsStore = defineStore('cashFlows', {
       this.isCashFlowLoading = true
       try {
         this.cashFlow = await getCashFlow(id)
-      } catch (error) {
-        await showErrorDialog(getErrorMessage(error))
+      } catch {
+        // Halaman detail menampilkan pesan "tidak ditemukan" sendiri, tanpa dialog modal.
+        this.cashFlow = null
       } finally {
         this.isCashFlowLoading = false
       }

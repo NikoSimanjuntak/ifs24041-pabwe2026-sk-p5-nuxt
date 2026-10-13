@@ -47,6 +47,11 @@ describe('DetailPage', () => {
     expect(screen.getByRole('link', { name: /Kembali ke ringkasan/ })).toHaveAttribute('href', '/')
   })
 
+  it('selalu memiliki heading level satu', async () => {
+    await setup(2)
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Rincian Transaksi Arus Kas')
+  })
+
   it('menampilkan rincian transaksi pengeluaran', async () => {
     await setup(3)
     expect(screen.getAllByText('Pengeluaran (Outflow)')).toHaveLength(2)
@@ -64,11 +69,12 @@ describe('DetailPage', () => {
     expect(screen.getByText('Gaji bulanan')).toBeInTheDocument()
   })
 
-  it('menampilkan pesan jika transaksi tidak ditemukan', async () => {
+  it('menampilkan pesan jika transaksi tidak ditemukan tanpa dialog', async () => {
     vi.mocked(getCashFlow).mockRejectedValue(new ApiError('Data tidak ditemukan', null, 404))
     await setup(99)
-    expect(showErrorDialog).toHaveBeenCalledWith('Data tidak ditemukan')
+    expect(showErrorDialog).not.toHaveBeenCalled()
     expect(screen.getByText('Transaksi tidak ditemukan.')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
   })
 
   it('mengubah transaksi lalu memuat ulang detail', async () => {

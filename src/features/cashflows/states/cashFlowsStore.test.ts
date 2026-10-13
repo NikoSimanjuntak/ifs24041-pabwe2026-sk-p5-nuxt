@@ -61,13 +61,14 @@ describe('cashFlowsStore', () => {
     expect(store.isCashFlowLoading).toBe(false)
   })
 
-  it('fetchCashFlow mengosongkan detail dan menampilkan error saat gagal', async () => {
+  it('fetchCashFlow mengosongkan detail tanpa dialog saat gagal', async () => {
     vi.mocked(getCashFlow).mockRejectedValue(failure)
     const store = useCashFlowsStore()
     store.cashFlow = mockCashFlows[0]
     await store.fetchCashFlow(2)
     expect(store.cashFlow).toBeNull()
-    expect(showErrorDialog).toHaveBeenCalledWith('Gagal')
+    expect(showErrorDialog).not.toHaveBeenCalled()
+    expect(store.isCashFlowLoading).toBe(false)
   })
 
   it('fetchLabels berhasil & gagal', async () => {

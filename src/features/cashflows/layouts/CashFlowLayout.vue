@@ -33,4 +33,7 @@ onMounted(async () => {
       </div>
     </main>
   </div>
+  <main v-else>
+    <h1 class="sr-only">Mengalihkan ke halaman login</h1>
+  </main>
 </template>
